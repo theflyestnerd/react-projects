@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 
 class Counter extends Component {
     state = {
-        count : 0,
-        tags: []
+        value : this.props.value
+        //tags: []
     };
+
+    handleIncrement = product => {
+        console.log(product)
+        this.setState({value : this.state.value + 1})
+    }
 
     renderTags() {
         if (this.state.tags.length === 0) return <p>There are no tags!</p>;
@@ -14,20 +19,22 @@ class Counter extends Component {
     render() {
         return(
             <div>
-                {this.state.tags.length === 0 && "Please create a new tag!"}
-                {this.renderTags()}
+                {/* {this.state.tags.length === 0 && "Please create a new tag!"}
+                {this.renderTags()} */}
+                <span className={this.getBadgeClasses()}/*"badge m-2 badge"*/>{this.formatCount()}</span>
+                <button onClick={() => this.handleIncrement()} className='btn btn-secondary btn-sm'>Increment</button>
                 </div>
         ) ;
     }
 
     getBadgeClasses() {
-        let classes = "badge m-2 badge-";
-        classes += this.state.count === 0 ? "warning" : "primary";
+        let classes = "badge m-2 badge";
+        classes += this.state.value === 0 ? "warning" : "primary";
     }
 
     formatCount() {
-        const {count} = this.state;
-        return count === 0 ? "Zero" : count;
+        const {value} = this.state;
+        return value === 0 ? "Zero" : value;
     }
 }
  
